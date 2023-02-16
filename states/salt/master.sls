@@ -5,13 +5,13 @@ salt-master:
 /srv/salt:
   file.directory: []
 
-# get the list of remote branches
+# Get the list of remote branches
 {% set branches = [] %}
 {% for origin_branch in salt['git.ls_remote'](remote='git@gitlab.hpc.taltech.ee:hpc/salt/salt-poc.git', opts='--heads', user='root', identity='/root/.ssh/id_rsa') %}
   {% set i = branches.append(origin_branch.replace('refs/heads/', '')) %}
 {% endfor %}
 
-# delete any directories that are no longer remote branches
+# Delete any directories that are no longer remote branches
 {% for dir in salt['file.find']('/srv/', type='d', maxdepth=1)
 if dir.startswith('/srv/salt/') and dir.split('/')[-1] not in branches %}
 {{ dir }}:
@@ -20,7 +20,7 @@ if dir.startswith('/srv/salt/') and dir.split('/')[-1] not in branches %}
       - file: /etc/salt/master.d/roots.conf
 {% endfor %}
 
-# clone each branch
+# Clone each branch
 {% for branch in branches %}
 salt-repo-{{ branch }}:
   git.latest:
@@ -40,7 +40,7 @@ salt-repo-{{ branch }}:
       - file: /etc/salt/master.d/roots.conf
 {% endfor %}
 
-# manage the file_roots config to generate environments
+# Render file_roots config to generate environments
 /etc/salt/master.d/roots.conf:
   file.managed:
     - template: jinja
