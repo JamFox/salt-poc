@@ -32,10 +32,10 @@ Set up the configuration management serivce account SSH keys that can clone Salt
 
 From this repositories `config` directory copy `master.conf` to `/etc/salt/master.d/`.
 
-Clone this repository and copy `states/` contents to `/srv/salt` (the default base directory for Salt):
+Clone this repository to `/srv/salt/master` (the base environment root directory):
 
 ```bash
-git clone git@gitlab.hpc.taltech.ee:hpc/salt/salt-poc.git /srv/salt/
+git clone git@gitlab.hpc.taltech.ee:hpc/salt/salt-poc.git /srv/salt/master
 ```
 
 Then enable and start both master and minion:
