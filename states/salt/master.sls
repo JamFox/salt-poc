@@ -44,7 +44,7 @@ salt-repo-{{ branch }}:
 /etc/salt/master.d/roots.conf:
   file.managed:
     - template: jinja
-    - source: salt://{{ slspath }}/files/roots.conf
+    - source: salt://{{ slspath }}/files/roots.conf.j2
     - user: root
     - mode: 644
     - listen_in:

@@ -8,7 +8,7 @@ file_roots:
   base:
     - /srv/salt/master/states
 {%- for branch in branch_dirs if branch != 'master' %}
-  {{ branch | regex_replace('/srv/salt/','') }}::
+  {{ branch | regex_replace('/srv/salt/','') }}:
     - {{ branch }}/states
 {%- endfor %}
 
@@ -16,6 +16,6 @@ pillar_roots:
   base:
     - /srv/salt/master/pillar
 {%- for branch in branch_dirs if branch != 'master' %}
-  {{ branch | regex_replace('/srv/salt/','') }}::
+  {{ branch | regex_replace('/srv/salt/','') }}:
     - {{ branch }}/pillar
 {%- endfor %}
