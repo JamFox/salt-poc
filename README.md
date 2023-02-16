@@ -28,9 +28,21 @@ sudo yum install salt-master
 sudo yum install salt-minion
 ```
 
+Set up the configuration management serivce account SSH keys that can clone Salt repositories under `/root/.ssh/id_rsa` and `/root/.ssh/id_rsa.pub`. 
+
+From this repositories `config` directory copy `master.conf` to `/etc/salt/master.d/`.
+
+Clone this repository and copy `states/` contents to `/srv/salt` (the default base directory for Salt):
+
+```bash
+git clone git@gitlab.hpc.taltech.ee:hpc/salt/salt-poc.git /srv/salt/
+```
+
 Then enable and start both master and minion:
 
 ```bash
 sudo systemctl enable salt-master && sudo systemctl start salt-master
 sudo systemctl enable salt-minion && sudo systemctl start salt-minion
 ```
+
+And run `salt 'salt' state.apply salt.refresh_repo`
