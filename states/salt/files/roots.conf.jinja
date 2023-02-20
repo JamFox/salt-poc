@@ -1,15 +1,18 @@
+{# Compile list of environments cloned to /srv/salt/ #}
 {%- set branch_dirs = [] -%}
 {%- for dir in salt['file.find']('/srv/', type='d', maxdepth=2) 
 if dir.startswith('/srv/salt/') and dir != '/srv/salt/master' -%}
   {%- set tmp = branch_dirs.append(dir) -%}
 {%- endfor -%}
 
+{# Using list of envs, create a state file root for each env #}
 file_roots:
 {%- for branch in branch_dirs if branch != 'master' %}
   {{ branch | regex_replace('/srv/salt/','') }}:
     - {{ branch }}/states
 {%- endfor %}
 
+{# Using list of envs, create a pillar file root for each env #}
 pillar_roots:
 {%- for branch in branch_dirs if branch != 'master' %}
   {{ branch | regex_replace('/srv/salt/','') }}:
