@@ -25,7 +25,7 @@ states/                         # Salt state formulas
         minion.sls              # Minion formula
         defaults.yaml           # Default variables
         files/                  # Files for formula
-            roots.conf.jinja       # Jinja template for roots.conf
+            roots.conf.jinja    # Jinja template for roots.conf
 ```
 
 - `config/` contains configuration files for the Salt master and minion that need to be copied manually.
