@@ -1,3 +1,5 @@
+# Merge defaults with pillar data
+# Pillar data takes precedence if it exists
 {%- set pget = salt['pillar.get'] %}
 {%- import_yaml slspath + "/defaults.yaml" as defaults %}
 {%- set masteruser = pget('master', defaults, merge=True) %}

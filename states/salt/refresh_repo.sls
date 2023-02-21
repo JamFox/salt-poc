@@ -3,8 +3,9 @@ salt_master_service:
     - name: salt-master
     - enable: True
 
-/srv/salt:
-  file.directory: []
+salt_directory:
+  file.directory: 
+    - name: /srv/salt
 
 # Get the list of remote branches
 {% set branches = [] %}
@@ -13,13 +14,13 @@ salt_master_service:
 {% endfor %}
 
 # Delete any directories that are no longer remote branches
-{% for dir in salt['file.find']('/srv/', type='d', maxdepth=2)
-if dir.startswith('/srv/salt/') and dir.split('/')[-2] not in branches %}
+{% for dir in salt['file.find']('/srv/salt/', type='d', maxdepth=1)
+if dir.startswith('/srv/salt/') and dir.split('/')[-1] not in branches %}
 
 {{ dir }}:
   file.absent:
     - require_in:
-      - file: /etc/salt/master.d/roots.conf
+      - file: environment_roots
 
 {% endfor %}
 
@@ -39,9 +40,9 @@ salt_repo_{{ branch }}:
     - force_fetch: True
     - force_reset: True
     - require:
-      - file: /srv/salt
+      - file: salt_directory
     - require_in:
-      - file: /etc/salt/master.d/roots.conf
+      - file: environment_roots
 
 {% endfor %}
 
@@ -54,4 +55,4 @@ environment_roots:
     - user: root
     - mode: 644
     - listen_in:
-      - service: salt-master
+      - service: salt_master_service
