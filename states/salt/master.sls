@@ -1,3 +1,7 @@
+{%- set pget = salt['pillar.get'] %}
+{%- import_yaml slspath + "/defaults.yaml" as defaults %}
+{%- set user = pget('master', defaults, merge=True) %}
+
 # Create test file 
 test_file_touch:
   file.touch:
