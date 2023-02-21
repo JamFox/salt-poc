@@ -15,7 +15,7 @@ salt_directory:
 
 # Delete any directories that are no longer remote branches
 {% for dir in salt['file.find']('/srv/salt/', type='d', maxdepth=1)
-if dir.startswith('/srv/salt/') and dir.split('/')[-1] not in branches %}
+if dir.startswith('/srv/salt/') and dir.split('/')[-1] not in branches and not '/srv/salt/' %}
 
 {{ dir }}:
   file.absent:
