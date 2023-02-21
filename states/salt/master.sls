@@ -3,9 +3,6 @@ test_file_touch:
   file.touch:
     - name: /etc/salt/test.txt
     - makedirs: True
-    - user: root
-    - group: root
-    - mode: 644
     - require:
       - file: /srv/salt
 
