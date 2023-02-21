@@ -6,5 +6,10 @@ master:
 # Schedules
 schedule:
   pull_latest_git:
-    function: salt.refresh_repo
+    function: state.sls
+    args:
+      - salt.refresh_repo
+    kwargs:
+      pillarenv: base
+      saltenv: base
     cron: '* * * * *'
