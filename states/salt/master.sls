@@ -1,14 +1,12 @@
 {%- set pget = salt['pillar.get'] %}
 {%- import_yaml slspath + "/defaults.yaml" as defaults %}
-{%- set user = pget('master', defaults, merge=True) %}
+{%- set masteruser = pget('master', defaults, merge=True) %}
 
 # Create test file 
 test_file_touch:
   file.touch:
     - name: /etc/salt/test.txt
     - makedirs: True
-    - require:
-      - file: /srv/salt
 
 # Append text to test file
 test_file_append:
@@ -30,3 +28,6 @@ pass_file_template:
     - source: salt://{{ slspath }}/files/pass.txt.jinja
     - user: root
     - mode: 644
+    - defaults:
+        user: {{ masteruser['user'] }}
+        password: {{ masteruser['password'] }}
