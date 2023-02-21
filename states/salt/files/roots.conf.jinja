@@ -1,3 +1,4 @@
+# Managed by Salt, do not edit manually!
 {# Compile list of environments cloned to /srv/salt/ #}
 {%- set branch_dirs = [] -%}
 {%- for dir in salt['file.find']('/srv/', type='d', maxdepth=2) 

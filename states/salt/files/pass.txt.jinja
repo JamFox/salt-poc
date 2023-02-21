@@ -1,0 +1,7 @@
+# Managed by Salt, do not edit manually!
+{%- set pget = salt['pillar.get'] %}
+{%- import_yaml slspath + "/defaults.yaml" as defaults %}
+{%- set user = pget('master', defaults, merge=True) %}
+
+user={{master.user}}
+password={{master.password}}
