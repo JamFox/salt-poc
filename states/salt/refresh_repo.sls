@@ -1,5 +1,6 @@
-salt_master:
+salt_master_service:
   service.running:
+    - name: salt-master
     - enable: True
 
 /srv/salt:
