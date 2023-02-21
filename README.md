@@ -176,4 +176,4 @@ Default [render pipe](https://docs.saltproject.io/en/latest/ref/renderers/index.
 
 [Environments are defined in the state top file](https://docs.saltproject.io/en/latest/ref/states/top.html).
 
-Schedule jobs with [schedules](https://docs.saltproject.io/en/latest/topics/jobs/index.html#scheduling-jobs).
+Schedule jobs with [schedules](https://docs.saltproject.io/en/latest/topics/jobs/index.html#scheduling-jobs) from [pillars](https://docs.saltproject.io/salt/user-guide/en/latest/topics/scheduler.html#scheduling-jobs-from-pillar).
