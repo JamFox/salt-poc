@@ -23,7 +23,6 @@ states/                         # Salt state formulas
         init.sls                # Init formula          
         master.sls              # Master formula
         minion.sls              # Minion formula
-        defaults.yaml           # Default variables
         files/                  # Files for formula
             roots.conf.jinja    # Jinja template for roots.conf
 ```
@@ -34,7 +33,7 @@ states/                         # Salt state formulas
 - `pillar/top.sls` contains the [pillar top file](https://docs.saltproject.io/en/latest/topics/pillar/index.html#declaring-the-master-pillar) that defines which pillar data is applied to which minions. The top file is not used as a location to declare variables and their values, it is used as a way to include other pillar files and organize the way they are matched based on environments or grains.
 - `states/` contains [state formulas](https://docs.saltproject.io/en/latest/topics/tutorials/states_pt1.html#states-tutorial) AKA the "playbooks".
 - `states/top.sls` contains the [state top file](https://docs.saltproject.io/en/latest/ref/states/top.html) that defines which state formulas are applied to which minions. The top file is not used as a location to declare formulas, it is used to include other state files and organize the way they are matched based on environments or grains.
-- Each state formula is a directory under `states/` with an `init.sls` file that contains the state formula. The `init.sls` file is the entry point for the formula. The `init.sls` file can contain other state formulas as dependencies. `files/` contains files and [Jinja templates](https://docs.saltproject.io/en/latest/topics/jinja/index.html) that are used by the formula. `defaults.yaml` contains the [default variables](https://stackoverflow.com/a/34345785) for the formula and is imported in `.sls` files and combined with pillars as needed.
+- Each state formula is a directory under `states/` with an `init.sls` file that contains the state formula. The `init.sls` file is the entry point for the formula. The `init.sls` file can contain other state formulas as dependencies. `files/` contains files and [Jinja templates](https://docs.saltproject.io/en/latest/topics/jinja/index.html) that are used by the formula.
 
 ## Setup
 
@@ -156,7 +155,7 @@ Comment Salt-managed files with `# Managed by Salt, do not edit manually!` at th
 
 Pillars should contain as little as possible to reduce rendering load on the master, but what should definitely be kept in pillars is very specific variables like sensitive/secret data. 
 
-Define default variables in `defaults.yaml` and override them in pillars as a last resort.
+Define variables in pillars by grains using jinja to set differing variables according to OS, environment, custom grains etc.
 
 Use [grains](https://docs.saltproject.io/en/latest/topics/grains/) and [custom grains on minion configuration](https://docs.saltproject.io/en/latest/topics/grains/#grains-in-the-minion-config) to match minions to states and handle variables in `defaults.yaml`.
 

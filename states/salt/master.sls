@@ -1,9 +1,3 @@
-# Merge defaults with pillar data
-# Pillar data takes precedence if it exists
-{%- set pget = salt['pillar.get'] %}
-{%- import_yaml slspath + "/defaults.yaml" as defaults %}
-{%- set masteruser = pget('master', defaults, merge=True) %}
-
 # Create test file 
 test_file_touch:
   file.touch:
@@ -31,5 +25,5 @@ pass_file_template:
     - user: root
     - mode: 644
     - defaults:
-        user: {{ masteruser['user'] }}
-        password: {{ masteruser['password'] }}
+        user: {{ pillar['master']['user'] }}
+        password: {{ pillar['master']['password'] }}
